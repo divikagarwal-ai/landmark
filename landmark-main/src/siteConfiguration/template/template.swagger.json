@@ -1,0 +1,574 @@
+{
+  "paths": {
+    "/api/v1/template/edit-template": {
+      "post": {
+        "tags": ["Templates"],
+        "summary": "Create or update policy commauto additional information.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Authentication token required for API access."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "templates_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "call_type": {
+                    "type": "string",
+                    "default": "TABLE | SQL_VIEW",
+                    "description": "Specifies whether the call is for a table or SQL view."
+                  },
+                  "template_name": {
+                    "type": "string",
+                    "description": "Name of the template."
+                  },
+                  "template_category": {
+                    "type": "string",
+                    "default": null,
+                    "description": "Category of the template."
+                  },
+                  "table_name_or_dynamic_view_code": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Table name or dynamic view code associated with the template."
+                  },
+                  "template_subject": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Subject of the template."
+                  },
+                  "body": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Body content of the template."
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE",
+                    "description": "Status of the template (e.g., ACTIVE, INACTIVE)."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Template created or updated successfully."
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameters."
+          }
+        }
+      }
+    },
+
+    "/api/v1/template/get-templates": {
+      "get": {
+        "tags": ["Templates"],
+        "summary": "Retrieve all commauto additional information.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Authentication token required for API access."
+          },
+          {
+            "in": "query",
+            "name": "template_code",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by template code."
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by status (e.g., ACTIVE, INACTIVE)."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter records up to a specific date (format: YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter records from a specific date (format: YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Filter by a specific value."
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request successful. Returns the list of templates."
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameters."
+          }
+        }
+      }
+    },
+    "/api/v1/template/render-template": {
+      "post": {
+        "tags": ["Templates"],
+        "summary": "Render a template with the provided payload.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Authentication token required for API access."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "template_code": {
+                    "type": "string",
+                    "default": "",
+                    "description": "The code identifying the template to render."
+                  },
+                  "payload": {
+                    "type": "object",
+                    "description": "The data object to be injected into the template."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request successful. Returns the rendered template."
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameters."
+          }
+        }
+      }
+    },
+    "/api/v1/template/get-sql-view-or-columns": {
+      "get": {
+        "tags": ["Templates"],
+        "summary": "Retrieve SQL views or columns for templates.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Authentication token required for API access."
+          },
+          {
+            "in": "query",
+            "name": "templates_dynamic_views_code",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The dynamic view code associated with templates."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request successful. Returns the SQL views or columns."
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameters."
+          }
+        }
+      }
+    },
+    "/api/v1/template/upsert-sql-view-or-columns": {
+      "post": {
+        "tags": ["Templates"],
+        "summary": "Upsert SQL view.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Authentication token required for API access."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "templates_dynamic_views_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+
+                  "templates_dynamic_views_code": {
+                    "type": "string",
+                    "default": null,
+                    "description": "Unique code for the dynamic view (required for updates)."
+                  },
+                  "view_for": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Context or purpose for the SQL view."
+                  },
+                  "view_sql": {
+                    "type": "string",
+                    "default": "",
+                    "description": "SQL query defining the view."
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Status of the view, e.g., ACTIVE or INACTIVE."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request successful. The SQL view has been created or updated."
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameters."
+          }
+        }
+      }
+    },
+    "/api/v1/template/upsert-email-body-template-mapping": {
+      "post": {
+        "tags": ["Templates"],
+        "summary": "Upsert SQL view.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Authentication token required for API access."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "template_module_mapping_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+
+                  "template_module_mapping_code": {
+                    "type": "string",
+                    "default": null,
+                    "description": "Unique code for the dynamic view (required for updates)."
+                  },
+                  "template_code": {
+                    "type": "string",
+                    "default": null,
+                    "description": "Context or purpose for the SQL view."
+                  },
+                  "module": {
+                    "type": "string",
+                    "default": null,
+                    "description": "SQL query defining the view."
+                  },
+                  "sub_module": {
+                    "type": "string",
+                    "default": null,
+                    "description": "SQL query defining the view."
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Status of the view, e.g., ACTIVE or INACTIVE."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request successful. The SQL view has been created or updated."
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameters."
+          }
+        }
+      }
+    },
+    "/api/v1/template/get-table-or-column-name": {
+      "get": {
+        "tags": ["Templates"],
+        "summary": "It will show all commauto additional information.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Authentication token required for API access."
+          },
+          {
+            "in": "query",
+            "name": "table_name",
+            "schema": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          {
+            "in": "query",
+            "name": "table_type",
+            "schema": {
+              "type": "string",
+              "enum": ["VIEW", "BASE TABLE"],
+              "default": "VIEW"
+            },
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/template/get-whatsapp-exotel-template": {
+      "get": {
+        "tags": ["Templates"],
+        "summary": "Get WhatsApp Exotel templates",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Authentication token required for API access."
+          },
+          {
+            "in": "query",
+            "name": "template_name",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter templates by name"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter templates by status"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Limit the number of results returned"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved WhatsApp Exotel templates"
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/template/upsert-whatsapp-template": {
+      "post": {
+        "tags": ["Templates"],
+        "summary": "Create or Update a WhatsApp template",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Authentication token required for API access."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "ID of the template to update",
+                    "default": null
+                  },
+                  "category": {
+                    "type": "string",
+                    "enum": ["MARKETING", "UTILITY"],
+                    "description": "Category of the WhatsApp template"
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": ["HEADER", "BODY", "FOOTER", "BUTTONS"],
+                          "description": "Type of template component"
+                        },
+                        "format": {
+                          "type": "string",
+                          "enum": ["IMAGE", null],
+                          "description": "Format of the component"
+                        },
+                        "text": {
+                          "type": "string",
+                          "description": "Text content of the component"
+                        },
+                        "buttons": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": ["URL"],
+                                "description": "Type of button"
+                              },
+                              "text": {
+                                "type": "string",
+                                "description": "Button text"
+                              },
+                              "url": {
+                                "type": "string",
+                                "description": "URL for the button"
+                              },
+                              "example": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "description": "Example values for the URL"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the template"
+                  },
+                  "language": {
+                    "type": "string",
+                    "description": "Language code for the template"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "WhatsApp template created/updated successfully"
+          },
+          "400": {
+            "description": "Bad Request - Invalid parameters"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

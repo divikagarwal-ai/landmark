@@ -1,0 +1,259 @@
+{
+  "paths": {
+    "/api/v1/venue/upsert-venue": {
+      "post": {
+        "tags": ["Venue"],
+        "summary": "Create or update a venue.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "venue_uuid": {
+                    "type": "string",
+                    "default": null,
+                    "description": "Unique identifier for the venue (required for updates)."
+                  },
+                  "venue_name": {
+                    "type": "string",
+                    "required": true,
+                    "description": "Name of the venue."
+                  },
+                  "branch_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "branch_name": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "venue_address": {
+                    "type": "string",
+                    "required": true,
+                    "description": "Address of the venue."
+                  },
+                  "venue_shift": {
+                    "type": "integer",
+                    "required": true,
+                    "maximum": 1,
+                    "description": "Shift timing of the venue. The maximum allowed value is 2."
+                  },
+                  "is_venue_available": {
+                    "type": "boolean",
+                    "required": true,
+                    "description": "Address of the venue."
+                  },
+                  "capacity": {
+                    "type": "integer",
+                    "default": null,
+                    "description": "Capacity of the venue."
+                  },
+
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE",
+                    "description": "Status of the venue (default is 'ACTIVE')."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Venue created or updated successfully."
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameters."
+          },
+          "404": {
+            "description": "Not Found - Venue not found."
+          }
+        }
+      }
+    },
+    "/api/v1/venue/get-venue": {
+      "get": {
+        "tags": ["Venue"],
+        "summary": "Retrieve all venues or a specific venue by UUID",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          },
+          {
+            "in": "query",
+            "name": "venue_id",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "venue_uuid",
+            "schema": {
+              "type": "string",
+              "default": null
+            },
+            "description": "A unique UUID associated with the venue."
+          },
+          {
+            "in": "query",
+            "name": "venue_address",
+            "schema": {
+              "type": "string",
+              "default": null
+            },
+            "description": "A unique UUID associated with the venue."
+          },
+          {
+            "in": "query",
+            "name": "capacity",
+            "schema": {
+              "type": "string",
+              "default": null
+            },
+            "description": "A unique UUID associated with the venue."
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status of the venue, e.g., ACTIVE, INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Upper date range for filtering venues (YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Lower date range for filtering venues (YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Columns to include in the result."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search value for filtering venues based on a column."
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Page number for pagination.",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Number of items per page for pagination.",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "advanceFilter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "operator": {
+                    "type": "string",
+                    "enum": [
+                      "EQUAL",
+                      "NOT_EQUAL",
+                      "GREATER",
+                      "LESSER",
+                      "GREATER_THAN_EQUAL",
+                      "LESSER_THAN_EQUAL",
+                      "CONTAINS",
+                      "STARTS_WITH",
+                      "ENDS_WITH",
+                      "DATE_RANGE"
+                    ]
+                  },
+                  "value": {
+                    "type": "string"
+                  },
+                  "logicalOperator": {
+                    "type": "string",
+                    "enum": ["AND", "OR"]
+                  }
+                }
+              }
+            },
+            "description": "Advanced filters for complex venue queries."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

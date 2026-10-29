@@ -1,0 +1,45 @@
+-- DROP VIEW IF EXISTS latest_leads_with_opportunity;
+-- CREATE VIEW latest_leads_with_opportunity AS
+-- SELECT
+--   ft.opportunity_id AS `id`,
+--   ft.customer_fact_uuid,
+--   ft.due_date,
+--   ft.amount,
+--   ft.type,
+--   ft.source,
+--   ft.probability,
+--   ft.file_upload,
+--   ft.status,
+--   ft.created_by_uuid,
+--   ft.insert_ts,
+--   l.leads_id,
+--   l.leads_unique_id,
+--   l.leads_uuid,
+--   l.lead_code,
+--   l.insurance_type,
+--   l.insurance_sub_type,
+--   l.first_name,
+--   l.last_name,
+--   l.email,
+--   l.phone,
+--   l.business_name,
+--   l.lead_source,
+--   l.specify,
+--   l.notes,
+--   l.comment,
+--   l.time_to_contact,
+--   l.assigned_to_id,
+--   l.status AS lead_status,
+--   l.created_by_uuid AS lead_created_by_uuid,
+--   l.created_by_name AS lead_created_by_name,
+--   l.modified_by_uuid AS lead_modified_by_uuid,
+--   l.modified_by_name AS lead_modified_by_name,
+--   l.create_ts AS lead_creation_date,
+--   l.insert_ts AS lead_insert_date
+-- FROM opportunity AS ft
+-- LEFT JOIN opportunity AS rt
+--   ON ft.  opportunity_unique_id = rt. opportunity_unique_id
+--   AND ft.opportunity_id < rt.opportunity_id
+-- LEFT JOIN `leads` l 
+-- ON l.leads_uuid = ft.leads_uuid
+-- WHERE rt.opportunity_id IS NULL;

@@ -1,0 +1,5001 @@
+{
+  "paths": {
+    "/api/v1/accounting/edit-account-payment-accounts-receivable": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accn_invoice_payment_accounts_receivable_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "payment_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_id": {
+                    "type": "number"
+                  },
+                  "entry_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "gl_accounts": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_payment_gl_account_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "batch_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "receipt_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_for": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "policy_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "default_tax_region": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_currency": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_amount": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "service_fee": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_method": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bank": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "reference_info": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_details": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "invoice_id": { "type": "number" },
+                        "invoice_number": { "type": "string" },
+                        "accn_transaction_id": { "type": "string" },
+                        "entry_type": { "type": "string" },
+                        "gl_accounts": { "type": "string" },
+                        "date": { "type": "string" },
+                        "batch_number": { "type": "string" },
+                        "reciept_number": { "type": "string" },
+                        "customer_code": { "type": "string" },
+                        "policy_number": { "type": "string" },
+                        "payment_type": { "type": "string" },
+                        "payment_currency": { "type": "string" },
+                        "payment_amount": { "type": "string" },
+                        "service_fee": { "type": "string" },
+                        "payment_method": { "type": "string" },
+                        "bank": { "type": "string" },
+                        "net_payable": { "type": "string" },
+                        "amount_due": { "type": "string" },
+                        "payment_paid": { "type": "string" },
+                        "payment_id": { "type": "string" },
+                        "total_paid": { "type": "string" }
+                      }
+                    },
+                    "default": []
+                  },
+                  "total_paid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "amount_excess": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "total_due": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "is_manual_invoice": {
+                    "type": "boolean",
+                    "default": 0
+                  },
+                  "file_upload": {
+                    "type": "object",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-payment-accounts-receivable": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "payment_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-invoice-payment-transaction-items": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "invoice_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "invoice_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "accn_transaction_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "entry_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "gl_accounts": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_payment_gl_account_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "batch_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "reciept_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_for": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "policy_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_currency": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_amount": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "service_fee": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_method": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bank": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "net_payable": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "total_due_dollar": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "amount_due": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "payment_paid": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "payment_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "total_paid": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "is_partial_payment": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-invoice-payment-transaction-items": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_invoice_payment_transaction_items_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_invoice_payment_transaction_items_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_invoice_payment_transaction_items_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "invoice_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "invoice_number",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ""
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-payment-accounts-receivable-history": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "payment_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ""
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-company-charts-of-accounts": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accn_company_charts_of_accounts_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "company_charts_of_accounts_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "incremental_number": {
+                    "type": "number"
+                  },
+                  "prefix": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "gl_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "gl_code_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "description": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "report_heading_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "balance_sheet_or_income_statement_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "balance_sheet_and_operating_statement_combine_accounts": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "general_ledger_details_report_consolidated_or_detailed": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "custom_cash_disbursement_report_column_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "account_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-company-charts-of-accounts": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": " accn_company_charts_of_accounts_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": " accn_company_charts_of_accounts_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_company_charts_of_accounts_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "company_charts_of_accounts_code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-company-gl-accounts": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accn_company_gl_accounts_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "charts_of_accounts_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "gl_account_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "agency_bill_receivables": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "direct_bill_receivables": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "net_income": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "retained_earnings": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cash_disbursements_asset_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "agency_bill_trust_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "general_cash_receipts_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "agency_bill_tax_payable_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "agency_bill_tax_two_payable_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "vat_on_direct_bill_commisions_payable_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "vat_on_agency_bill_earned_commissions_expense_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "agency_bill_tax_trust_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "direct_bill_bonus_commision_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "direct_bill_charge_back_commision_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "direct_bill_charge_back_bonus_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "finance_and_service_charge_income_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "automatic_writeoff_waiver_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-company-gl-accounts": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "accn_company_gl_accounts_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_company_gl_accounts_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_company_gl_accounts_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+
+          {
+            "in": "query",
+            "name": "gl_account_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-company-information": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accn_company_information_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "company_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "company_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "address": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "unit_or_suite": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "city": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "province_or_state": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "postal_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "country": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "phone": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "telephone": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "fax": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "default_language": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "accounts_email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cl_email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "pl_email": {
+                    "type": "string",
+                    "default": null
+                  },
+
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-company-information": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "company_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_company_information_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_company_information_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_company_information_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-company-information-public": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-company-onboarding": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  " accn_company_onboarding_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "company_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "address": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "unit_or_suite": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "city": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "province_or_state": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "postal_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "country": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "phone_telephone": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "fax": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "default_language": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "accounts_email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cl_email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "pl_email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-company-onboarding": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": " accn_company_onboarding_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_company_onboarding_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_company_onboarding_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-invoice": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accn_invoice_information_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "invoice_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_information_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "invoice_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_due_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_terms": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "accounting_information_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "gl_sales_account_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "gl_sales_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_for": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "policy_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "policy_status": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "transaction_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "policy_transaction_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "effective_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "default_tax_region": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "agency_or_direct_bill": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "insurer_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "branch": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "branch_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "premium_financed": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "financed_by": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "policy_commission_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_details": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "accn_invoice_transaction_items_uuid": {
+                          "type": "string",
+                          "default": null
+                        },
+                        "accn_transaction_id": {
+                          "type": "integer",
+                          "default": ""
+                        },
+                        "invoice_number": {
+                          "type": "string",
+                          "default": ""
+                        },
+                        "transaction_type": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "description": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "detail": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "ammount": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "tax_one_percentage": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "tax_one_amount": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "tax_two_percentage": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "tax_two_amount": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "commission_percentage": {
+                          "type": "string",
+                          "example": "10"
+                        },
+                        "commission_amount": {
+                          "type": "string",
+                          "example": "10"
+                        },
+                        "house_percentage": {
+                          "type": "string",
+                          "example": "100"
+                        },
+                        "house_amount": {
+                          "type": "string",
+                          "example": "10"
+                        },
+                        "producer_one_id": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "producer_one_code": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "producer_two_id": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "producer_two_code": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "producer_three_id": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "producer_three_code": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "csr_code": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "branch_code": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "producer_one_percentage": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "producer_one_amount": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "producer_two_percentage": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "producer_two_amount": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "producer_three_percentage": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "producer_three_amount": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "branch_percentage": {
+                          "type": "string",
+                          "nullable": true,
+                          "example": ""
+                        },
+                        "branch_amount": {
+                          "type": "string",
+                          "example": "0"
+                        },
+                        "total_amount": {
+                          "type": "string",
+                          "example": "100"
+                        },
+                        "net_payable_insurer": {
+                          "type": "string",
+                          "example": "100"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "ACTIVE | INACTIVE"
+                        }
+                      }
+                    }
+                  },
+                  "sub_total_dollar": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "total_due_dollar": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "net_payable_insurer": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_notes": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_footer_information": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "type_of_policy": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "tax_one_total": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "tax_two_total": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "commission_total": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "is_mannual_invoice": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "policy_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "finance_fees": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "amount_due": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "amount_paid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_status": {
+                    "type": "string",
+                    "default": null
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-invoice": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "policy_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_invoice_information_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_invoice_information_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "invoice_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_invoice_information_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "advanceFilter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "default": ""
+                    }
+                  },
+                  "operator": {
+                    "type": "string",
+                    "default": "EQUAL | NOT_EQUAL | GREATER | LESSER | GREATER_THAN_EQUAL | LESSER_THAN_EQUAL | CONTAINS | STARTS_WITH | ENDS_WITH | DATE_RANGE"
+                  },
+                  "value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "logicalOperator": {
+                    "type": "string",
+                    "default": "AND | OR"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-invoice-and-payment-history": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "invoice_information_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "advanceFilter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "default": ""
+                    }
+                  },
+                  "operator": {
+                    "type": "string",
+                    "default": "EQUAL | NOT_EQUAL | GREATER | LESSER | GREATER_THAN_EQUAL | LESSER_THAN_EQUAL | CONTAINS | STARTS_WITH | ENDS_WITH | DATE_RANGE"
+                  },
+                  "value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "logicalOperator": {
+                    "type": "string",
+                    "default": "AND | OR"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-accn-transaction-report": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accn_transaction_report_history_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "from_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "to_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "sub_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "general_ledger_report": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "order_by": {
+                    "type": "string",
+                    "default": "invoice_date"
+                  },
+                  "view": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_name": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "policy_number": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "producer_one_code": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "branch_code": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "csr_code": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "insurer_code": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "line_of_business": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "transaction_type": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "payment_method": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "policy_type": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "policy_transaction_type": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "agency_or_direct_bill": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "policy_status": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "effective_date": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "vendor": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "vendor_type": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "payment_terms": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "category": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "gl_account": {
+                    "type": "object",
+                    "default": []
+                  },
+                  "fields_to_exports": {
+                    "type": "object",
+                    "default": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-accn-transaction-report-history": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show history of transaction report.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_transaction_report_history_code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-accn-reports-fields-to-exports": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all fields of reports.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "string",
+              "enum": ["AR", "AP", "GL"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "sub_type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "general_ledger_report",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-amount-sum": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transaction_type",
+            "schema": {
+              "type": "string",
+              "default": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-invoice-template": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  " accn_invoice_template_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "accn_invoice_template_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_policy_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "incremental_number": {
+                    "type": "number"
+                  },
+                  "invoice_notes": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_footer": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-invoice-template": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": " accn_invoice_template_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": " accn_invoice_template_unique_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_invoice_template_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_invoice_template_code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-transaction-type": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  " accn_transaction_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "transaction_type_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "customer_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_policy_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "transaction_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "transaction_type_gl_account_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "gl_account_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "detail": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-transaction-type": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "  accn_transaction_type_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "  accn_transaction_type_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "  accn_transaction_type_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transaction_type_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-transaction-description": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accn_transactions_uuid_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "transaction_description_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "customer_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_policy_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "transaction_description": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "detail": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-transaction-description": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "customer_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "transaction_description_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-create-bill": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Creating Bills",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  " accn_create_bill_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_policy_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bill_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "bill_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "vendor": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "category": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bill_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "due_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_terms": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "gl_expense_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "gl_sales_account_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bill_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bill_details": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "accn_bill_transaction_items_uuid": {
+                          "type": "string",
+                          "default": null
+                        },
+                        "customer_id": { "type": "string" },
+                        "accn_transaction_id": { "type": "string" },
+                        "detail": { "type": "string" },
+                        "account": { "type": "string" },
+                        "description": { "type": "string" },
+                        "tax_percentage": { "type": "string" },
+                        "tax_amount": { "type": "string" },
+                        "amount": { "type": "string" },
+                        "final_amount": { "type": "string" },
+                        "vendor": { "type": "string" },
+                        "vendor_type": { "type": "string" },
+                        "category": { "type": "string" },
+                        "bill_date": { "type": "string" },
+                        "bill_id": { "type": "string" },
+                        "bill_type": { "type": "string" },
+                        "due_date": { "type": "string" },
+                        "payment_terms": { "type": "string" },
+                        "total_amount": { "type": "string" }
+                      }
+                    }
+                  },
+                  "bill_notes": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bill_footer_information": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "sub_total_amount": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "discount_percentage": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "discount_amount": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "adjustment_percentage": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "adjustment_amount": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "total_tax_amount": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "amount_due": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "amount_paid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "total_due_amount": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "accounting_information_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-create-bill": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_create_bill_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": " accn_create_bill_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+
+          {
+            "in": "query",
+            "name": "accn_create_bill_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "bill_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-bill-and-payment-history": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "bill_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-bill-payment-transaction-items": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accn_bill_transaction_items_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "accn_transaction_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "detail": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "description": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "tax_percentage": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "tax_amount": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "amount": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "final_amount": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "vendor": {
+                    "type": "string",
+                    "default": null
+                  },
+
+                  "category": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bill_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bill_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bill_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "due_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_terms": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-bill-payment-transaction-items": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": " accn_bill_transaction_items_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": " accn_bill_transaction_items_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "customer_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": " accn_bill_transaction_items_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-bill-template": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  " accn_bill_template_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "accn_bill_template_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_policy_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "incremental_number": {
+                    "type": "number"
+                  },
+                  "bill_notes": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bill_footer": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-bill-template": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": " accn_bill_template_id",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": " accn_bill_template_unique_id",
+            "schema": {
+              "type": "number"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "accn_bill_template_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_bill_template_code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ""
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-create-payment": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accn_create_payment_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "accn_create_payment_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "customer_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_policy_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_id": {
+                    "type": "number"
+                  },
+                  "vendor": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "gl_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "invoice_payment_gl_account_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bill_payment_details": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "payment_id": { "type": "number" },
+                        "accn_transaction_id": { "type": "number" },
+                        "date": { "type": "string" },
+                        "payment_paid": { "type": "string" },
+                        "amount_due": { "type": "string" },
+                        "bill_amount": { "type": "string" },
+                        "bill_number": { "type": "string" },
+                        "total_amount": { "type": "string" }
+                      }
+                    },
+                    "default": [
+                      {
+                        "payment_id": null,
+                        "accn_transaction_id": null,
+                        "date": null,
+                        "payment_paid": null,
+                        "amount_due": null,
+                        "bill_amount": null,
+                        "bill_number": null,
+                        "total_amount": null
+                      }
+                    ]
+                  },
+                  "payment_made": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bank_charges": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_method": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "paid_through_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "reference_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "total_amount": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "amount_due": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "amount_paid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "amount_used_for_payments": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "amount_refunded": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "amount_in_excess": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "notes": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-create-payment": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_create_payment_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_create_payment_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_create_payment_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "payment_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-bank-account": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accn_bank_account_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bank_account_code": {
+                    "type": "string",
+                    "default": null
+                  },
+
+                  "bank_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bank_account_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "account_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "gl_account_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "branch_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "last_used_cheque_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "last_used": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "last_used_receipts_batch_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "original_opening_balance": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "original_opening_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "current_month_opening_balance": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "current_month_opening_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "current_balance": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "current_balance_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-bank-account": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": " accn_bank_account_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_bank_account_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_bank_account_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "bank_account_code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ""
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-cheque": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accn_cheque_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payment_id": {
+                    "type": "number"
+                  },
+                  "payment_method_cheque": {
+                    "type": "string",
+                    "default": null
+                  },
+
+                  "cheque_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cheque_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cheque_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cheque_amount": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cheque_voided": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cheque_voided_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cheque_printed": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cheque_printed_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cheque_cleared": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cheque_cleared_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "clear_pay_y_n": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "clear_pay_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "clear_pay_branch_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bank_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "payee": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "mailing_address": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "unit_or_suite": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "city": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "province_state": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "country": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "postal_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-cheque": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_cheque_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_cheque_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_cheque_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "payment_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-vendor": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accn_vendor_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "insurer_code_yes_or_no": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "insurer_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "vendor_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "vendor_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "vendor_description": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "mailing_address": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "unit_or_suite": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "city": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "state_or_province": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "postal_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "country": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "language_e_f": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "contact_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "phone": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "ext": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "toll_free": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "transit_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bank_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "account_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "primary_gl_account_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "primary_details": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-vendor": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": " accn_vendor_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": " accn_vendor_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": " accn_vendor_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "vendor_code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/edit-account-system-gl-account": {
+      "post": {
+        "tags": ["Accounting"],
+        "summary": "Create account system gl account.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accn_system_gl_account_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "incremental_number": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "agency_bill_receivables": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "direct_bill_receivables": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "net_income": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "retained_earnings": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cash_disbursements_asset_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "agency_bill_trust_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "general_cash_receipts_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "agency_bill_tax_payable_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "agency_bill_tax_two_payable_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "vat_on_direct_bill_commissions_payable_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "vat_on_agency_bill_earned_commissions_expense_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "agency_bill_tax_trust_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "direct_bill_bonus_commission_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "direct_bill_charge_back_commission_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "direct_bill_charge_back_bonus_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "finance_and_service_charge_income_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "automatic_writeoff_or_waiver_account": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/get-account-system-gl-account": {
+      "get": {
+        "tags": ["Accounting"],
+        "summary": "It will show all system gl accounts as well as single by system gl account.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_system_gl_account_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_system_gl_account_unique_id",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "accn_system_gl_account_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  }
+}

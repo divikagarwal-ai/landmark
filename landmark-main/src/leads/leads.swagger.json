@@ -1,0 +1,689 @@
+{
+  "paths": {
+    "/api/v1/leads/upsert-leads": {
+      "post": {
+        "tags": ["Leads"],
+        "summary": "Create leads from outside and update status for it.",
+        "description": "",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "leads_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "lead_code": {
+                    "type": "string",
+                    "maxLength": 10,
+                    "description": "A unique code associated with the lead"
+                  },
+                  "insurance_type": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "default": null
+                  },
+                  "insurance_sub_type": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "default": null
+                  },
+                  "first_name": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "required": true
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "required": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "required": true
+                  },
+                  "phone": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "required": true
+                  },
+                  "business_name": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "default": null
+                  },
+                  "lead_source": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "default": null
+                  },
+                  "specify": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "notes": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "default": null
+                  },
+                  "comment": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "default": null
+                  },
+                  "time_to_contact": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "default": null
+                  },
+                  "assigned_to_id": {
+                    "type": "integer",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/leads/auth-upsert-leads": {
+      "post": {
+        "tags": ["Leads"],
+        "summary": "Create leads from logged-in user and update status for it.",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "leads_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "lead_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "name_of_guest": {
+                    "type": "string",
+                    "default": "",
+                    "required": true
+                  },
+                  "contact_number_one": {
+                    "type": "string",
+                    "default": "",
+                    "required": true
+                  },
+                  "event_type": {
+                    "type": "string",
+                    "default": "",
+                    "required": true
+                  },
+                  "number_of_guests": {
+                    "type": "integer",
+                    "default": "",
+                    "required": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "required": true
+                  },
+                  "date_of_visit": {
+                    "type": "string",
+                    "format": "date-time",
+                    "required": true,
+                    "description": "The date when the lead visited"
+                  },
+                  "function_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "required": true,
+                    "default": ""
+                  },
+                  "function_month": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "followup_date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "handled_by_employee": {
+                    "type": "string",
+                    "required": true,
+                    "default": ""
+                  },
+                  "handled_by_employee_uuid": {
+                    "type": "string",
+                    "required": true,
+                    "default": ""
+                  },
+                  "alt_function_month": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "contact_number_two": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "event_time": {
+                    "type": "string",
+                    "required": true,
+                    "default": ""
+                  },
+                  "event_time_uuid": {
+                    "type": "string",
+                    "required": true,
+                    "default": ""
+                  },
+                  "preferred_venue": {
+                    "type": "string",
+                    "required": true,
+                    "default": ""
+                  },
+                  "preferred_venue_uuid": {
+                    "type": "string",
+                    "required": true,
+                    "default": ""
+                  },
+                  "number_of_rooms": {
+                    "type": "integer",
+                    "default": null
+                  },
+                  "remarks": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ONGOING | CANCELLED | BOOKED| POSTPONED",
+                    "description": "The current status of the lead."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/leads/get-leads": {
+      "get": {
+        "tags": ["Leads"],
+        "summary": "Retrieve all leads or specific lead by ID",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          },
+
+          {
+            "in": "query",
+            "name": "leads_uuid",
+            "schema": {
+              "type": "string",
+              "default": null
+            },
+            "description": "A unique UUID associated with the lead."
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status of the lead, e.g., ACTIVE, DEAD, or OPPORTUNITY."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Upper date range for filtering leads (YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "venue_uuid",
+            "schema": {
+              "type": "string",
+              "default": null
+            },
+            "description": "A unique UUID associated with the lead."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Lower date range for filtering leads (YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Columns to include in the result."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search value for filtering leads based on a column."
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "pageLimit",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "advanceFilter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": [""]
+                  },
+                  "operator": {
+                    "type": "string",
+                    "default": "EQUAL",
+                    "enum": [
+                      "EQUAL",
+                      "NOT_EQUAL",
+                      "GREATER",
+                      "LESSER",
+                      "GREATER_THAN_EQUAL",
+                      "LESSER_THAN_EQUAL",
+                      "CONTAINS",
+                      "STARTS_WITH",
+                      "ENDS_WITH",
+                      "DATE_RANGE"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "logicalOperator": {
+                    "type": "string",
+                    "default": "AND",
+                    "enum": ["AND", "OR"]
+                  }
+                }
+              }
+            },
+            "description": "Advanced filters for complex lead queries."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/leads/get-status-leads": {
+      "get": {
+        "tags": ["Leads"],
+        "summary": "Retrieve lead data or lead status counts",
+        "description": "Fetch all lead data when type=list or return lead status counts when type=count.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Upper date range for filtering leads (YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Lower date range for filtering leads (YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "data_wise",
+            "schema": {
+              "type": "string",
+              "enum": ["Booking_Month", "Lead_Month"]
+            },
+            "description": "Lower date range for filtering leads (YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "followup_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "The date of the follow-up for filtering leads (YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The page number for pagination.",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The number of records to show per page.",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "pageLimit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The limit of pages to fetch.",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "status_type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "TODAY_FOLLOWUPS",
+                "MISSED_FOLLOWUPS",
+                "ONGOING",
+                "CANCELLED",
+                "BOOKED",
+                "POSTPONED"
+              ]
+            },
+            "description": "Status type for filtering leads."
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "string",
+              "enum": ["list", "count"]
+            },
+            "required": true,
+            "description": "Set to 'list' to return all lead data or 'count' to return the count of each lead status."
+          },
+          {
+            "in": "query",
+            "name": "advanceFilter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": [""]
+                  },
+                  "operator": {
+                    "type": "string",
+                    "default": "EQUAL",
+                    "enum": [
+                      "EQUAL",
+                      "NOT_EQUAL",
+                      "GREATER",
+                      "LESSER",
+                      "GREATER_THAN_EQUAL",
+                      "LESSER_THAN_EQUAL",
+                      "CONTAINS",
+                      "STARTS_WITH",
+                      "ENDS_WITH",
+                      "DATE_RANGE"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "logicalOperator": {
+                    "type": "string",
+                    "default": "AND",
+                    "enum": ["AND", "OR"]
+                  }
+                }
+              }
+            },
+            "description": "Advanced filters for complex lead queries."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/leads/upsert-opportunity": {
+      "post": {
+        "tags": ["Leads"],
+        "summary": "Create or update an opportunity",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "leads_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "lead_code": {
+                    "type": "string",
+                    "maxLength": 10,
+                    "description": "A unique code associated with the lead"
+                  },
+                  "insurance_type": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "default": null
+                  },
+                  "insurance_sub_type": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "default": null
+                  },
+                  "first_name": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "required": true
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "required": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "required": true
+                  },
+                  "phone": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "required": true
+                  },
+                  "business_name": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "default": null
+                  },
+                  "lead_source": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "description": "Source of the lead",
+                    "default": null
+                  },
+                  "specify": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "notes": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "default": null
+                  },
+                  "comment": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "default": null
+                  },
+                  "time_to_contact": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "default": null
+                  },
+                  "assigned_to_id": {
+                    "type": "integer",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

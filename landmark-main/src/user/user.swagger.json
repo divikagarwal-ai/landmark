@@ -1,0 +1,495 @@
+{
+  "paths": {
+    "/api/v1/user/upsert-user": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Create or Update primary details of User",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "username": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "user_password": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "first_name": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "role_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "role_value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "branches": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "branch_name": {
+                          "type": "string",
+                          "default": ""
+                        },
+                        "branch_uuid": {
+                          "type": "string",
+                          "default": ""
+                        }
+                      }
+                    },
+                    "default": []
+                  },
+                  "user_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "UNAUTHORIZE | ACTIVE | INACTIVE | BLOCKED"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/user/update-profile": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Create or update User",
+        "description": "Endpoint Create or update User",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "email": {
+                    "type": "string",
+                    "default": null
+                  },
+
+                  "personal_email": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "user_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "role_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "role_value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "branchs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "branch_name": {
+                          "type": "string"
+                        },
+                        "branch_uuid": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "default": []
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "job_title": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "manager_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "hierarchy_uuids": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "user_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "assigned_phone_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "shared_email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "mobile": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "home_phone": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "linkedin_profile": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "hire_date": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "last_day_at_work": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "department": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "fax": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "date_of_birth": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "mother_maiden_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "photo": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "signature": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "street_address": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "unit_or_suite": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "city": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "province_or_state": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "postal_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "country": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "languages_known": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "documents": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/user/get-user": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get all User ",
+        "description": "This endpoint to get User.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "user_profile_id",
+            "description": "",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "role_uuid",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "role_group",
+            "required": false,
+            "type": "string",
+            "enum": ["SALES", "DC"]
+          },
+          {
+            "in": "query",
+            "name": "user_uuid",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "explode": false
+          },
+
+          {
+            "in": "query",
+            "name": "value",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful logout. The user has been logged out."
+          },
+          "404": {
+            "description": "Not Found. The provided user identifier was not found."
+          },
+          "500": {
+            "description": "Internal Server Error. An unexpected error occurred on the server."
+          }
+        }
+      }
+    },
+    "/api/v1/user/change-user-role": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Create or update User",
+        "description": "Endpoint Create or update ZOne",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "role_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "role_value": {
+                    "type": "string",
+                    "default": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/user/change-user-pwd": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Change User Password",
+        "description": "Endpoint Change User Password",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "user_password": {
+                    "type": "string",
+                    "default": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

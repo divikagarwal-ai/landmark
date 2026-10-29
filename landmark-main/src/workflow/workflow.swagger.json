@@ -1,0 +1,1423 @@
+{
+  "paths": {
+    "/api/v1/workflow/upsert-workflow-basic": {
+      "post": {
+        "tags": ["Work Flow"],
+        "summary": "Create or update workflow basic definition",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "workflow_basic_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "workflow_basic_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "workflow_name": {
+                    "type": "string",
+                    "required": true,
+                    "description": "Name of the workflow"
+                  },
+                  "run_as": {
+                    "type": "string",
+                    "required": true,
+                    "enum": ["MANUAL", "CRON", "REAL_TIME"],
+                    "description": "Whether workflow runs manually, as scheduled CRON, or in real-time"
+                  },
+                  "real_time_type": {
+                    "type": "string",
+                    "enum": ["CREATE", "SELF_CHANGES", "CUSTOM"],
+                    "description": "Type of real-time workflow trigger"
+                  },
+                  "module_name": {
+                    "type": "string",
+                    "description": "Name of the module this workflow belongs to"
+                  },
+                  "endpoint_path": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "cron_schedule_at": {
+                    "type": "object",
+                    "properties": {
+                      "second": {
+                        "type": "string",
+                        "description": "0-59"
+                      },
+                      "minute": {
+                        "type": "string",
+                        "description": "0-59"
+                      },
+                      "hour": {
+                        "type": "string",
+                        "description": "0-23"
+                      },
+                      "date": {
+                        "type": "string",
+                        "description": "1-31"
+                      },
+                      "month": {
+                        "type": "string",
+                        "description": "1-12"
+                      },
+                      "week": {
+                        "type": "string",
+                        "description": "0-7"
+                      },
+                      "repeatEvery": {
+                        "type": "boolean"
+                      }
+                    }
+                  },
+                  "nodes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "edges": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": ["ACTIVE", "INACTIVE"],
+                    "default": "ACTIVE",
+                    "description": "Current status of the workflow"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "406": {
+            "description": "Workflow with this module name already exists"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/get-workflow-basic": {
+      "get": {
+        "tags": ["Work Flow"],
+        "summary": "Work flow basic get.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string",
+              "required": true
+            }
+          },
+          {
+            "in": "query",
+            "name": "workflow_basic_code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE, INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search according to"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageLimit",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "advanceFilter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": [""]
+                  },
+                  "operator": {
+                    "type": "string",
+                    "default": "EQUAL",
+                    "enum": [
+                      "EQUAL",
+                      "NOT_EQUAL",
+                      "GREATER",
+                      "LESSER",
+                      "GREATER_THAN_EQUAL",
+                      "LESSER_THAN_EQUAL",
+                      "CONTAINS",
+                      "STARTS_WITH",
+                      "ENDS_WITH",
+                      "DATE_RANGE"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "logicalOperator": {
+                    "type": "string",
+                    "default": "AND",
+                    "enum": ["AND", "OR"]
+                  }
+                }
+              }
+            },
+            "description": "Advanced filters for complex lead queries."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/upsert-workflow-condition": {
+      "post": {
+        "tags": ["Work Flow"],
+        "summary": "Create or update workflow condition",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "workflow_condition_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "workflow_condition_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "workflow_basic_code": {
+                    "type": "string",
+                    "default": "",
+                    "required": true
+                  },
+                  "call_type": {
+                    "type": "string",
+                    "enum": ["API", "SQL"],
+                    "required": true
+                  },
+                  "conditions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "and": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "column": {
+                                "type": "string",
+                                "description": "e.g., view.column1 or view.*.new_column"
+                              },
+                              "operant": {
+                                "type": "string",
+                                "enum": [
+                                  "EQUAL",
+                                  "NOT_EQUAL",
+                                  "GREATER",
+                                  "LESSER",
+                                  "GREATER_THAN_EQUAL",
+                                  "LESSER_THAN_EQUAL"
+                                ]
+                              },
+                              "columnOrValue": {
+                                "type": "string",
+                                "description": "e.g., view.column1, value1, or view.*.old_column"
+                              },
+                              "isColumnComparison": {
+                                "type": "boolean",
+                                "default": false
+                              }
+                            }
+                          }
+                        },
+                        "or": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "column": {
+                                "type": "string",
+                                "description": "e.g., view.column1 or view.*.new_column"
+                              },
+                              "operant": {
+                                "type": "string",
+                                "enum": [
+                                  "EQUAL",
+                                  "NOT_EQUAL",
+                                  "GREATER",
+                                  "LESSER",
+                                  "GREATER_THAN_EQUAL",
+                                  "LESSER_THAN_EQUAL"
+                                ]
+                              },
+                              "columnOrValue": {
+                                "type": "string",
+                                "description": "e.g., view.column1, value1, or view.*.old_column"
+                              },
+                              "isColumnComparison": {
+                                "type": "boolean",
+                                "default": false
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "sql_statement": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "ui_related": {
+                    "type": "array",
+                    "default": []
+                  },
+                  "nodes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": ["ACTIVE", "INACTIVE"],
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid workflow Basic"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/get-workflow-condition": {
+      "get": {
+        "tags": ["Work Flow"],
+        "summary": "Work flow basic get.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string",
+              "required": true
+            }
+          },
+          {
+            "in": "query",
+            "name": "workflow_condition_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "workflow_condition_code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE, INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search according to"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "advanceFilter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": [""]
+                  },
+                  "operator": {
+                    "type": "string",
+                    "default": "EQUAL",
+                    "enum": [
+                      "EQUAL",
+                      "NOT_EQUAL",
+                      "GREATER",
+                      "LESSER",
+                      "GREATER_THAN_EQUAL",
+                      "LESSER_THAN_EQUAL",
+                      "CONTAINS",
+                      "STARTS_WITH",
+                      "ENDS_WITH",
+                      "DATE_RANGE"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "logicalOperator": {
+                    "type": "string",
+                    "default": "AND",
+                    "enum": ["AND", "OR"]
+                  }
+                }
+              }
+            },
+            "description": "Advanced filters for complex lead queries."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/upsert-workflow-action": {
+      "post": {
+        "tags": ["Work Flow"],
+        "summary": "Create or update workflow action",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "workflow_action_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "workflow_action_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "workflow_basic_code": {
+                    "type": "string",
+                    "required": true,
+                    "description": "Reference to parent workflow basic"
+                  },
+                  "workflow_condition_code": {
+                    "type": "string",
+                    "default": null,
+                    "description": "Reference to workflow condition"
+                  },
+                  "action_type": {
+                    "type": "string",
+                    "enum": ["EMAIL", "SMS", "WHATSAPP", "MODIFICATION"],
+                    "required": true,
+                    "description": "Type of action to perform"
+                  },
+                  "comment": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "nodes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": ["ACTIVE", "INACTIVE"],
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid workflow Basic"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/get-workflow-action": {
+      "get": {
+        "tags": ["Work Flow"],
+        "summary": "Work flow action get.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string",
+              "required": true
+            }
+          },
+          {
+            "in": "query",
+            "name": "workflow_action_uuid",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "workflow_action_code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE, INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search according to"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "advanceFilter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": [""]
+                  },
+                  "operator": {
+                    "type": "string",
+                    "default": "EQUAL",
+                    "enum": [
+                      "EQUAL",
+                      "NOT_EQUAL",
+                      "GREATER",
+                      "LESSER",
+                      "GREATER_THAN_EQUAL",
+                      "LESSER_THAN_EQUAL",
+                      "CONTAINS",
+                      "STARTS_WITH",
+                      "ENDS_WITH",
+                      "DATE_RANGE"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "logicalOperator": {
+                    "type": "string",
+                    "default": "AND",
+                    "enum": ["AND", "OR"]
+                  }
+                }
+              }
+            },
+            "description": "Advanced filters for complex lead queries."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/upsert-workflow-action-email": {
+      "post": {
+        "tags": ["Work Flow"],
+        "summary": "Create or update workflow action email",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "workflow_action_email_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "workflow_action_email_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "workflow_basic_code": {
+                    "type": "string",
+                    "required": true,
+                    "description": "Reference to parent workflow basic"
+                  },
+                  "workflow_action_code": {
+                    "type": "string",
+                    "required": true,
+                    "description": "Reference to parent workflow action"
+                  },
+                  "call_type": {
+                    "type": "string",
+                    "required": true,
+                    "enum": ["API", "SQL", "VARIABLE", "EMAIL_ADDRESS"],
+                    "description": "Type of call to get email addresses"
+                  },
+                  "to": {
+                    "type": "array",
+                    "default": [
+                      {
+                        "api": "{domain}/{endpoint}?{query-param}=${view.columnName}",
+                        "emailColumn": "write field which in response data",
+                        "userName": "write field which in response data"
+                      },
+                      "write SQL query here with only one select email column",
+                      "{view}.{columnName}"
+                    ]
+                  },
+                  "cc": {
+                    "type": "array",
+                    "default": [
+                      {
+                        "api": "{domain}/{endpoint}?{query-param}=${view.columnName}",
+                        "emailColumn": "write field which in response data",
+                        "userName": "write field which in response data"
+                      },
+                      "write SQL query here with only one select email column",
+                      "{view}.{columnName}"
+                    ]
+                  },
+                  "bcc": {
+                    "type": "array",
+                    "default": [
+                      {
+                        "api": "{domain}/{endpoint}?{query-param}=${view.columnName}",
+                        "emailColumn": "write field which in response data",
+                        "userName": "write field which in response data"
+                      },
+                      "write SQL query here with only one select email column",
+                      "{view}.{columnName}"
+                    ]
+                  },
+                  "sending_order": {
+                    "type": "string",
+                    "enum": ["ONE_BY_ONE", "ALL_AT_ONCE"],
+                    "default": "ALL_AT_ONCE"
+                  },
+                  "template_code": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "nodes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": ["ACTIVE", "INACTIVE"],
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid workflow Basic"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/get-workflow-action-email": {
+      "get": {
+        "tags": ["Work Flow"],
+        "summary": "Work flow action email get.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string",
+              "required": true
+            }
+          },
+          {
+            "in": "query",
+            "name": "workflow_action_email_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "workflow_action_email_code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE, INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search according to"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "advanceFilter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": [""]
+                  },
+                  "operator": {
+                    "type": "string",
+                    "default": "EQUAL",
+                    "enum": [
+                      "EQUAL",
+                      "NOT_EQUAL",
+                      "GREATER",
+                      "LESSER",
+                      "GREATER_THAN_EQUAL",
+                      "LESSER_THAN_EQUAL",
+                      "CONTAINS",
+                      "STARTS_WITH",
+                      "ENDS_WITH",
+                      "DATE_RANGE"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "logicalOperator": {
+                    "type": "string",
+                    "default": "AND",
+                    "enum": ["AND", "OR"]
+                  }
+                }
+              }
+            },
+            "description": "Advanced filters for complex lead queries."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/upsert-workflow-action-message": {
+      "post": {
+        "tags": ["Work Flow"],
+        "summary": "Create or update workflow action message",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "workflow_action_message_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "workflow_action_message_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "workflow_action_code": {
+                    "type": "string",
+                    "required": true,
+                    "description": "Reference to parent workflow action"
+                  },
+                  "workflow_basic_code": {
+                    "type": "string",
+                    "required": true,
+                    "description": "Reference to parent workflow basic"
+                  },
+                  "message_to": {
+                    "type": "string",
+                    "required": true,
+                    "description": "Recipient of the message"
+                  },
+                  "message": {
+                    "type": "string",
+                    "required": true,
+                    "description": "Message content"
+                  },
+                  "comment": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "nodes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": ["ACTIVE", "INACTIVE"],
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/get-workflow-action-message": {
+      "get": {
+        "tags": ["Work Flow"],
+        "summary": "Work flow action message get.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string",
+              "required": true
+            }
+          },
+          {
+            "in": "query",
+            "name": "workflow_action_message_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "workflow_action_message_code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE, INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search according to"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "advanceFilter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": [""]
+                  },
+                  "operator": {
+                    "type": "string",
+                    "default": "EQUAL",
+                    "enum": [
+                      "EQUAL",
+                      "NOT_EQUAL",
+                      "GREATER",
+                      "LESSER",
+                      "GREATER_THAN_EQUAL",
+                      "LESSER_THAN_EQUAL",
+                      "CONTAINS",
+                      "STARTS_WITH",
+                      "ENDS_WITH",
+                      "DATE_RANGE"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "logicalOperator": {
+                    "type": "string",
+                    "default": "AND",
+                    "enum": ["AND", "OR"]
+                  }
+                }
+              }
+            },
+            "description": "Advanced filters for complex lead queries."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/get-workflow-all-definition": {
+      "get": {
+        "tags": ["Work Flow"],
+        "summary": "Work flow All definition.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string",
+              "required": true
+            }
+          },
+          {
+            "in": "query",
+            "name": "workflow_basic_code",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/workflow/workflow-initiate": {
+      "post": {
+        "tags": ["Work Flow"],
+        "summary": "Initiate a workflow",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "endpoint_path": {
+                    "type": "string",
+                    "required": true,
+                    "description": "API endpoint path that triggered the workflow"
+                  },
+                  "upsert_type": {
+                    "type": "string",
+                    "required": true,
+                    "enum": ["CREATE", "UPDATE"],
+                    "description": "Type of operation that triggered the workflow"
+                  },
+                  "identifier": {
+                    "type": "object",
+                    "required": true,
+                    "properties": {
+                      "column_name": {
+                        "type": "string",
+                        "required": true,
+                        "description": "Name of the identifying column"
+                      },
+                      "column_value": {
+                        "type": "string",
+                        "required": true,
+                        "description": "Value of the identifying column"
+                      }
+                    }
+                  },
+                  "changed_column": {
+                    "type": "object",
+                    "properties": {
+                      "column1": {
+                        "type": "object",
+                        "properties": {
+                          "old_value": {
+                            "type": "string",
+                            "default": ""
+                          },
+                          "new_value": {
+                            "type": "string",
+                            "default": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "no_changed_column": {
+                    "type": "object",
+                    "properties": {
+                      "column1": {
+                        "type": "string",
+                        "default": ""
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

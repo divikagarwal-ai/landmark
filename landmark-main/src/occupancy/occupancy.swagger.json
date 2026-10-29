@@ -1,0 +1,682 @@
+{
+  "paths": {
+    "/api/v1/occupancy/get-occupancy": {
+      "get": {
+        "tags": ["Occupancy"],
+        "summary": "Get all inventory details ",
+        "description": "This endpoint to get inventory details.",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "venue_uuid",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "required": false,
+            "type": "string",
+            "description": "2024-08-25"
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "required": false,
+            "type": "string",
+            "description": "2024-08-30"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful."
+          },
+          "404": {
+            "description": "Not Found."
+          },
+          "500": {
+            "description": "Internal Server Error. An unexpected error occurred on the server."
+          }
+        }
+      }
+    },
+    "/api/v1/occupancy/upsert-occupancy": {
+      "post": {
+        "tags": ["Occupancy"],
+        "summary": "Create or Update inventory",
+        "description": "",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+
+                "properties": {
+                  "occupancy_uuid": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "default": null
+                  },
+                  "venue_uuid": {
+                    "type": "string",
+                    "default": null,
+                    "maxLength": 100
+                  },
+                  "venue_name": {
+                    "type": "string",
+                    "default": null,
+                    "maxLength": 100
+                  },
+                  "shift_time": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "calendar_uuid": {
+                    "type": "string",
+                    "default": null,
+                    "maxLength": 100
+                  },
+                  "calendar_date": {
+                    "type": "string",
+                    "default": null,
+                    "maxLength": 100
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "BOOKED | CANCELLED"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/occupancy/upsert-bulk-occupancy": {
+      "post": {
+        "tags": ["Occupancy"],
+        "summary": "Create or Update inventory in Bulk",
+        "description": "",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+
+                "properties": {
+                  "occupancy_uuid": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "default": null
+                  },
+
+                  "venue_uuid": {
+                    "type": "string",
+                    "default": "",
+                    "maxLength": 100
+                  },
+                  "venue_name": {
+                    "type": "string",
+                    "default": "",
+                    "maxLength": 100
+                  },
+                  "shift_time": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "event_time_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "price": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "from_date": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "to_date": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "availability": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/occupancy/booking": {
+      "post": {
+        "tags": ["Booking"],
+        "summary": "Create Booking",
+        "description": "",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "customer_fact_uuid": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "default": null
+                  },
+                  "booking_uuid": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "default": null
+                  },
+                  "from_date": {
+                    "type": "string",
+                    "required": true,
+                    "default": ""
+                  },
+                  "to_date": {
+                    "type": "string",
+                    "required": true,
+                    "default": ""
+                  },
+                  "leads_uuid": {
+                    "type": "string",
+                    "description": "property uuid",
+                    "default": null
+                  },
+                  "venue_uuid": {
+                    "type": "string",
+                    "description": "Room type uuid",
+                    "required": "true",
+                    "default": "",
+                    "maxLength": 50
+                  },
+                  "venue_name": {
+                    "type": "string",
+                    "description": "Venue name",
+                    "required": "true",
+                    "default": "",
+                    "maxLength": 50
+                  },
+                  "venue_shift": {
+                    "type": "integer",
+                    "default": 1
+                  },
+                  "event_time": {
+                    "type": "string",
+                    "default": null
+                  },
+
+                  "customer_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_mobile_no": {
+                    "type": "string",
+                    "default": null
+                  },
+
+                  "total_price": {
+                    "type": "float",
+                    "description": "total price"
+                  },
+                  "total_guest": {
+                    "type": "number",
+                    "description": "total guest",
+                    "default": 1,
+                    "maxLength": 50
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/occupancy/get-booking": {
+      "get": {
+        "tags": ["Booking"],
+        "summary": "Get all Booking details ",
+        "description": "This endpoint to get Booking details.",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "venue_uuid",
+            "required": false,
+
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "occupancy_uuid",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "customer_fact_uuid",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "booking_uuid",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": null
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": null
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": null
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": null
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "pageLimit",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "advanceFilter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": [""]
+                  },
+                  "operator": {
+                    "type": "string",
+                    "default": "EQUAL",
+                    "enum": [
+                      "EQUAL",
+                      "NOT_EQUAL",
+                      "GREATER",
+                      "LESSER",
+                      "GREATER_THAN_EQUAL",
+                      "LESSER_THAN_EQUAL",
+                      "CONTAINS",
+                      "STARTS_WITH",
+                      "ENDS_WITH",
+                      "DATE_RANGE"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "logicalOperator": {
+                    "type": "string",
+                    "default": "AND",
+                    "enum": ["AND", "OR"]
+                  }
+                }
+              }
+            },
+            "description": "Advanced filters for complex lead queries."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful."
+          },
+          "404": {
+            "description": "Not Found."
+          },
+          "500": {
+            "description": "Internal Server Error. An unexpected error occurred on the server."
+          }
+        }
+      }
+    },
+    "/api/v1/occupancy/cancel-booking": {
+      "post": {
+        "tags": ["Booking"],
+        "summary": "Cancel Booking",
+        "description": "",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "booking_uuid": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "default": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/occupancy/get-event-timing": {
+      "get": {
+        "tags": ["Occupancy"],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "event_timing_uuid",
+            "required": false,
+
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": null
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": null
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": null
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": null
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "pageLimit",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "advanceFilter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": [""]
+                  },
+                  "operator": {
+                    "type": "string",
+                    "default": "EQUAL",
+                    "enum": [
+                      "EQUAL",
+                      "NOT_EQUAL",
+                      "GREATER",
+                      "LESSER",
+                      "GREATER_THAN_EQUAL",
+                      "LESSER_THAN_EQUAL",
+                      "CONTAINS",
+                      "STARTS_WITH",
+                      "ENDS_WITH",
+                      "DATE_RANGE"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "logicalOperator": {
+                    "type": "string",
+                    "default": "AND",
+                    "enum": ["AND", "OR"]
+                  }
+                }
+              }
+            },
+            "description": "Advanced filters for complex lead queries."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful."
+          },
+          "404": {
+            "description": "Not Found."
+          },
+          "500": {
+            "description": "Internal Server Error. An unexpected error occurred on the server."
+          }
+        }
+      }
+    }
+  }
+}

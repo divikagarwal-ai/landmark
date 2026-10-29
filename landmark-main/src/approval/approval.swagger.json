@@ -1,0 +1,416 @@
+{
+  "paths": {
+    "/api/v1/approval/insert-approval": {
+      "post": {
+        "tags": ["Approval"],
+        "summary": "Create or insert Approval",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "table_name": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "record_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "record_column_name": {
+                    "type": "string",
+                    "default": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/approval/handle-approval": {
+      "post": {
+        "tags": ["Approval"],
+        "summary": "Create or update Approval",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "approval_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "remark": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "fields": {
+                    "type": "object"
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "APPROVED | REJECTED | ROLLBACK"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/approval/get-approval": {
+      "get": {
+        "tags": ["Approval"],
+        "summary": "Get Approvals",
+        "description": "Endpoint to retrieve approvals",
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "table_name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+
+          {
+            "in": "query",
+            "name": "value",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "enum": ["REQUESTED", "ROLLBACK", "APPROVED"]
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/api/v1/approval/insert-approval-count": {
+      "post": {
+        "tags": ["Approval"],
+        "summary": "Create or update Approval Count",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "approval_count_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "table_name": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "link_table": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "link_column": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "approval_hierarchy": {
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "default": ""
+                          },
+                          "uuid": {
+                            "type": "string",
+                            "default": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "approval_raise_status": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "previous_status": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "next_status": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE | INACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/approval/get-approval-count": {
+      "get": {
+        "tags": ["Approval"],
+        "summary": "Get Approvals",
+        "description": "Endpoint to retrieve approvals",
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "approval_count_uuid",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+
+          {
+            "in": "query",
+            "name": "value",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "enum": ["REQUESTED", "ROLLBACK", "APPROVED"]
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/api/v1/approval/get-table-status": {
+      "get": {
+        "tags": ["Approval"],
+        "summary": "Get Table Status",
+        "description": "Endpoint to retrieve table status",
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "module_name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "submodule_name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "table_name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    }
+  }
+}

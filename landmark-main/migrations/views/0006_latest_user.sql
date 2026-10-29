@@ -1,0 +1,66 @@
+CREATE
+or
+REPLACE VIEW latest_user AS
+select
+    uf.user_fact_id,
+    uf.user_fact_unique_id,
+    uf.user_uuid,
+    uf.email,
+    uf.username,
+    `uf`.status,
+    uf.created_by_uuid,
+    uf.created_by_name,
+    uf.insert_ts,
+    lud.user_dim_id,
+    lud.user_dim_unique_id,
+    lud.user_password,
+    lud.role_uuid,
+    lud.role_value,
+    up.user_profile_id,
+    up.user_profile_unique_id,
+    up.first_name,
+    up.last_name,
+    CONCAT(up.first_name, 
+       CASE 
+           WHEN up.last_name IS NOT NULL THEN CONCAT(' ', up.last_name)
+           ELSE ''
+       END
+    ) AS full_name,
+    up.personal_email,
+    up.job_title,
+    up.user_type,
+    up.assigned_phone_number,
+    up.shared_email,
+    up.mobile,
+    up.home_phone,
+    up.linkedin_profile,
+    up.hire_date,
+    up.last_day_at_work,
+    up.department,
+    up.fax,
+    up.date_of_birth,
+    up.mother_maiden_name,
+    up.photo,
+    up.signature,
+    up.street_address,
+    up.unit_or_suite,
+    up.city,
+    up.csr,
+    up.csr_code,
+    up.marketer,
+    up.marketer_code,
+    up.producer_one,
+    up.producer_one_code,
+    up.producer_two,
+    up.producer_two_code,
+    up.producer_three,
+    up.producer_three_code,
+    up.branch_code,
+    up.province_or_state,
+    up.postal_code,
+    up.country,
+    up.languages_known,
+    up.documents
+from user_fact uf
+    INNER JOIN latest_user_dim as lud on uf.user_uuid = lud.user_uuid
+    left join latest_user_profile as up on uf.user_uuid = up.user_uuid ORDER BY uf.insert_ts DESC;

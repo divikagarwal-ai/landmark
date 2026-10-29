@@ -1,0 +1,476 @@
+{
+  "paths": {
+    "/api/v1/security/upsert-roles": {
+      "post": {
+        "tags": ["Security"],
+        "summary": "Post Roles",
+        "description": "Endpoint to create or update Roles",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "role_name": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "role_group": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "role_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+
+    "/api/v1/security/get-roles": {
+      "get": {
+        "tags": ["Security"],
+        "summary": "Get Roles",
+        "description": "Endpoint to retrieve Roles",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "role_id",
+            "description": "",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "role_uuid",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+
+          {
+            "in": "query",
+            "name": "value",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "type": "number"
+          }
+        ],
+
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+
+    "/api/v1/security/upsert-role-module-content-access-permission": {
+      "post": {
+        "tags": ["Security"],
+        "summary": "Upsert Security Modules",
+        "description": "Endpoint to create or update Security Modules",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "role_module_uuid": {
+                      "type": "string",
+                      "default": null
+                    },
+                    "module_uuid": {
+                      "type": "string",
+                      "default": ""
+                    },
+                    "role_uuid": {
+                      "type": "string",
+                      "default": ""
+                    },
+                    "show_module": {
+                      "type": "number",
+                      "default": 0
+                    },
+                    "view_access": {
+                      "type": "number",
+                      "default": 0
+                    },
+                    "edit_access": {
+                      "type": "number",
+                      "default": 0
+                    },
+                    "delete_access": {
+                      "type": "number",
+                      "default": 0
+                    },
+                    "send_sms": {
+                      "type": "number",
+                      "default": 0
+                    },
+                    "send_mail": {
+                      "type": "number",
+                      "default": 0
+                    },
+                    "send_whatsapp": {
+                      "type": "number",
+                      "default": 0
+                    },
+                    "send_call": {
+                      "type": "number",
+                      "default": 0
+                    },
+                    "filter_values": {
+                      "type": "object",
+                      "default": {}
+                    },
+                    "status": {
+                      "type": "string",
+                      "default": "ACTIVE"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+
+    "/api/v1/security/get-role-module-content-access-permission": {
+      "get": {
+        "tags": ["Security"],
+        "summary": "Get Roles",
+        "description": "Endpoint to retrieve Roles",
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+
+          {
+            "in": "query",
+            "name": "role_uuid",
+            "description": "",
+            "required": false,
+            "type": "string"
+          }
+        ],
+
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/api/v1/security/get-modules": {
+      "get": {
+        "tags": ["Security"],
+        "summary": "Get Modules",
+        "description": "Endpoint to retrieve Roles",
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/api/v1/security/upsert-role-group": {
+      "post": {
+        "tags": ["Security"],
+        "summary": "Create or update role groups.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Authentication token required for API access."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "role_group_uuid": {
+                    "type": "string",
+                    "default": null,
+                    "description": "Unique identifier for the role group (required for updates)."
+                  },
+                  "role_group": {
+                    "type": "string",
+                    "default": null,
+                    "description": "Name of the role group."
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE",
+                    "description": "Status of the role group (e.g., ACTIVE, INACTIVE)."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Role group created or updated successfully."
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameters."
+          },
+          "404": {
+            "description": "Not Found - Role group not found."
+          },
+          "401": {
+            "description": "Unauthorized - Invalid authentication token."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+
+    "/api/v1/security/get-role-group": {
+      "get": {
+        "tags": ["Security"],
+        "summary": "Retrieve Role Groups",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "role_group_id",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "role_group_uuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ""
+            },
+            "description": "Column names for search."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by specific value."
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status of the role group (e.g., ACTIVE or INACTIVE)."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter records from this date (format: YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter records up to this date (format: YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Page number for pagination."
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Number of items per page for pagination."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Role groups retrieved successfully."
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameters."
+          },
+          "404": {
+            "description": "Not Found - Role group not found."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    }
+  }
+}

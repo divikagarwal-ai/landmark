@@ -1,0 +1,346 @@
+{
+  "paths": {
+    "/api/v1/history/upsert-history": {
+      "post": {
+        "tags": ["History"],
+        "summary": "Post History",
+        "description": "Endpoint to create or update History",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "module_name": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "module_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "module_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "history_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "message": {
+                    "type": "string",
+                    "default": null
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+
+    "/api/v1/history/get-history": {
+      "get": {
+        "tags": ["History"],
+        "summary": "Get History",
+        "description": "Endpoint to retrieve history",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "module_uuid",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+
+          {
+            "in": "query",
+            "name": "value",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "type": "number"
+          }
+        ],
+
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+
+    "/api/v1/history/upsert-email-history": {
+      "post": {
+        "tags": ["History"],
+        "summary": "Post Email History",
+        "description": "Endpoint to create or update Email History",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email_history_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "email_conversation_id": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "module_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "module_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "subject": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "to_mail_ids": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "cc_mail_ids": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bcc_mail_ids": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "body": {
+                    "type": "object",
+                    "default": null
+                  },
+                  "attachments": {
+                    "type": "object",
+                    "default": null
+                  },
+                  "comment": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "send_received_ts": {
+                    "type": "string",
+                    "default": null
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+
+    "/api/v1/history/get-email-history": {
+      "get": {
+        "tags": ["History"],
+        "summary": "Get Email History",
+        "description": "Endpoint to retrieve Email history",
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "email_history_id",
+            "description": "",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "email_history_uuid",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "module_uuid",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+
+          {
+            "in": "query",
+            "name": "value",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "type": "number"
+          }
+        ],
+
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    }
+  }
+}

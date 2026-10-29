@@ -1,0 +1,918 @@
+{
+  "paths": {
+    "/api/v1/general/send-grid-email": {
+      "post": {
+        "tags": ["General"],
+        "summary": "Send an email",
+        "description": "This endpoint sends an email with the provided details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "module_name": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "module_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "comment": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "emails": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "default": ""
+                    }
+                  },
+                  "subject": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "body": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "templateName": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "templateId": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "objectVariables": {
+                    "type": "object"
+                  },
+                  "cc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "default": ""
+                    }
+                  },
+                  "bcc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "default": ""
+                    }
+                  },
+                  "reply_to": {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string",
+                        "default": null
+                      },
+                      "name": {
+                        "type": "string",
+                        "default": ""
+                      }
+                    }
+                  },
+                  "attachments": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "content": {
+                          "type": "string",
+                          "default": ""
+                        },
+                        "filename": {
+                          "type": "string",
+                          "default": ""
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email sent successfully"
+          },
+          "400": {
+            "description": "Bad request, invalid input"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/general/upload-files": {
+      "post": {
+        "tags": ["General"],
+        "summary": "It will show history of all updates in policy.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "file"
+                    }
+                  },
+                  "module_name": {
+                    "type": "string"
+                  },
+                  "as_payload": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/general/download-files": {
+      "post": {
+        "tags": ["General"],
+        "summary": "It will show history of all updates in policy.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "default": "json | ''"
+                  },
+                  "keys": {
+                    "type": "array",
+                    "default": ["string"],
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/general/microsoftgraph/get-inbox": {
+      "get": {
+        "tags": ["General"],
+        "summary": "Get Inbox through Microsoft Graph",
+        "description": "This endpoint Get Inbox through Microsoft Graph.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful logout. The user has been logged out."
+          },
+          "404": {
+            "description": "Not Found. The provided user identifier was not found."
+          },
+          "500": {
+            "description": "Internal Server Error. An unexpected error occurred on the server."
+          }
+        }
+      }
+    },
+    "/api/v1/general/microsoftgraph/search": {
+      "get": {
+        "tags": ["General"],
+        "summary": "Search Subject through Microsoft Graph",
+        "description": "This endpointis to Search Subject Microsoft Graph.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "searchType",
+            "description": "Select all for all messages, else select subejct for subject search",
+            "schema": {
+              "type": "string",
+              "enum": ["subject", "all"]
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful logout. The user has been logged out."
+          },
+          "404": {
+            "description": "Not Found. The provided user identifier was not found."
+          },
+          "500": {
+            "description": "Internal Server Error. An unexpected error occurred on the server."
+          }
+        }
+      }
+    },
+    "/api/v1/general/microsoftgraph/fetchUnreadEmails": {
+      "get": {
+        "tags": ["General"],
+        "summary": "Fetch unread emails through Microsoft Graph",
+        "description": "This endpoint is to fetch all unread emails from Microsoft Graph.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "auth-Key",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful logout. The user has been logged out."
+          },
+          "404": {
+            "description": "Not Found. The provided user identifier was not found."
+          },
+          "500": {
+            "description": "Internal Server Error. An unexpected error occurred on the server."
+          }
+        }
+      }
+    },
+    "/api/v1/general/microsoftgraph/send-email": {
+      "post": {
+        "tags": ["General"],
+        "summary": "Send an email",
+        "description": "This endpoint sends an email with the provided details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "subject": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Subject of the email"
+                  },
+                  "body": {
+                    "type": "object",
+                    "description": "Body/content of the email",
+                    "properties": {
+                      "contentType": {
+                        "type": "string",
+                        "default": "Text"
+                      },
+                      "content": {
+                        "type": "string",
+                        "default": ""
+                      }
+                    }
+                  },
+                  "toRecipients": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "emailAddress": {
+                          "type": "object",
+                          "properties": {
+                            "address": {
+                              "type": "string",
+                              "default": ""
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "ccRecipients": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "emailAddress": {
+                          "type": "object",
+                          "properties": {
+                            "address": {
+                              "type": "string",
+                              "default": ""
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "attachments": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "default": ""
+                        },
+                        "contentType": {
+                          "type": "string",
+                          "default": ""
+                        },
+                        "contentBytes": {
+                          "type": "string",
+                          "default": ""
+                        }
+                      },
+                      "required": ["name", "content"]
+                    },
+                    "description": "Attachments to include in the email"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email sent successfully"
+          },
+          "400": {
+            "description": "Bad request, invalid input"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/general/approval/status-approval": {
+      "post": {
+        "tags": ["General"],
+        "summary": "Approval Status",
+        "description": "This endpoint sends for status approval.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "approval_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "table_name": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "record_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "record_id": {
+                    "type": "number",
+                    "default": null
+                  },
+                  "record_column_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "approved_by_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "requested_by_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "previous_status": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "next_status": {
+                    "type": "string",
+                    "default": null
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email sent successfully"
+          },
+          "400": {
+            "description": "Bad request, invalid input"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/general/base64-to-buffer": {
+      "post": {
+        "tags": ["General"],
+        "summary": "Convert base64 to buffer",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "base64Array": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email sent successfully"
+          },
+          "400": {
+            "description": "Bad request, invalid input"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/v1/general/get-table-info": {
+      "get": {
+        "tags": ["General"],
+        "summary": "Get Table Info",
+        "description": "Endpoint to retrieve table info",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "table_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/general/get-table-name-or-column-name": {
+      "get": {
+        "tags": ["General"],
+        "summary": "Get Table Name or Column Name",
+        "description": "Endpoint to retrieve table name or column name",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "table_type",
+            "schema": {
+              "type": "string",
+              "enum": ["VIEW", "BASE TABLE"]
+            },
+            "description": "Select table for table name or view for view name",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "table_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "is_data_type_required",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+
+    "/api/v1/general/generate-dynamic-sql": {
+      "post": {
+        "tags": ["General"],
+        "summary": "Generate Dynamic SQL.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "views": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "default": ""
+                    }
+                  },
+                  "onConditions": {
+                    "type": "object",
+                    "properties": {
+                      "selected-second-view-onward": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "and|or": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "column": {
+                                    "type": "string",
+                                    "default": "payload1.column1"
+                                  },
+                                  "operant": {
+                                    "type": "string",
+                                    "default": "EQUAL | NOT_EQUAL | GREATER | LESSER | GREATER_THAN_EQUAL | LESSER_THAN_EQUAL"
+                                  },
+                                  "columnOrValue": {
+                                    "type": "string",
+                                    "default": "payload2.column1 | value1"
+                                  },
+                                  "isColumnComparison": {
+                                    "type": "boolean",
+                                    "default": false
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "whereConditions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "and|or": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "column": {
+                                "type": "string",
+                                "default": "payload1.column1"
+                              },
+                              "operant": {
+                                "type": "string",
+                                "default": "EQUAL | NOT_EQUAL | GREATER | LESSER | GREATER_THAN_EQUAL | LESSER_THAN_EQUAL"
+                              },
+                              "columnOrValue": {
+                                "type": "string",
+                                "default": "payload2.column1 | value1"
+                              },
+                              "isColumnComparison": {
+                                "type": "boolean",
+                                "default": false
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/general/get-record-counts": {
+      "get": {
+        "tags": ["General"],
+        "summary": "It will show the count of total records per column.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "table_name",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  }
+}

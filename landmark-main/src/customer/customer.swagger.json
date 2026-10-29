@@ -1,0 +1,1040 @@
+{
+  "paths": {
+    "/api/v1/customer/upsert-customer": {
+      "post": {
+        "summary": "Create leadss from outside and update status for it.",
+        "tags": ["Customer"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "customer_fact_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "customer_code": {
+                    "type": "string",
+                    "default": null
+                  },
+
+                  "inquiry_date": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "default": null
+                  },
+                  "salutation": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "default": null
+                  },
+                  "customer_name": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "first_name": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "default": null
+                  },
+
+                  "date_of_birth": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "default": null
+                  },
+                  "gender": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "default": null
+                  },
+                  "permanent_address": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "caste_category": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "city": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "state": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "pincode": {
+                    "type": "integer",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "country": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "goes_by": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "position": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "contact_number": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "phone": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": ""
+                  },
+                  "phone_ext": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "email": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": ""
+                  },
+                  "remarks": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "inquiry_reference": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "followUp_date_and_remark": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "father_name": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "mother_name": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "annual_income": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "package_structure": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "default": null
+                  },
+                  "family_income": {
+                    "type": "string",
+                    "maxLength": 30,
+                    "default": null
+                  },
+                  "aadhar_no": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "docs_upload": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE "
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/customer/get-customer": {
+      "get": {
+        "tags": ["Customer"],
+        "summary": "It will show all customer personal information as well as single by customer personal information.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "customer_fact_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ""
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by specified value."
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "number"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "name": "itemPerPage",
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/customer/get-customer-personal-details": {
+      "get": {
+        "tags": ["Customer"],
+        "summary": "It will show all customer personal details .",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "customer_fact_uuid",
+            "schema": {
+              "type": "string"
+            },
+            "description": "customer fact uuid."
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for customer fact."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ""
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "number"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "name": "itemPerPage",
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/customer/insert-transaction": {
+      "post": {
+        "tags": ["Customer"],
+        "summary": "Insert  transaction",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "transaction_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+
+                  "customer_fact_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "customer_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "fees_paid": {
+                    "type": "integer",
+                    "maxLength": 50,
+                    "default": ""
+                  },
+                  "remarks": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "default": null
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/customer/get-transaction": {
+      "get": {
+        "tags": ["Customer"],
+        "summary": "Retrieve all fee transaction or specific transaction by ID",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          },
+          {
+            "in": "query",
+            "name": "transaction_uuid",
+            "schema": {
+              "type": "string",
+              "default": null
+            },
+            "description": "A unique UUID for getting fee transaction"
+          },
+
+          {
+            "in": "query",
+            "name": "customer_fact_uuid",
+            "schema": {
+              "type": "string",
+              "default": null
+            },
+            "description": "A unique UUID for getting fee transaction from specific student."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Upper date range for filtering leadss (YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Lower date range for filtering leadss (YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Columns to include in the result."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search value for filtering leadss based on a column."
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/customer/transaction-receipt": {
+      "get": {
+        "tags": ["Customer"],
+        "summary": "Download Transaction Receipt",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          },
+
+          {
+            "in": "query",
+            "name": "customer_fact_uuid",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "description": "A unique UUID associated with the customer."
+          },
+          {
+            "in": "query",
+            "name": "transaction_uuid",
+            "schema": {
+              "type": "string",
+              "default": null
+            },
+            "description": "A unique UUID associated with the fee transaction."
+          },
+          {
+            "in": "query",
+            "name": "isPreview",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "in": "query",
+            "name": "isIndianStyle",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/customer/upsert-package-structure": {
+      "post": {
+        "tags": ["Customer"],
+        "summary": "Create package structure",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "package_structure_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "batch": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "year": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "amount": {
+                    "type": "integer",
+                    "default": null
+                  },
+                  "description": {
+                    "type": "string",
+                    "default": null
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/customer/edit-customer-prospact-details": {
+      "post": {
+        "tags": ["Customer"],
+        "summary": "Create customer prospect details.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "customer_fact_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "customer_name": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "customer_code": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "form_of_business": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "tax_zone": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "mailing_address": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "unit_or_suite": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "city": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "province_or_state": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "postal_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "country": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "language": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "producer": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "marketer": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "branch": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "assigned_to": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "csr": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/customer/get-customer-prospact-details": {
+      "get": {
+        "tags": ["Customer"],
+        "summary": "It will show all customer prospect details as well as single by customer prospect detail.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "customer_fact_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ""
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/customer/edit-customer-social": {
+      "post": {
+        "tags": ["Customer"],
+        "summary": "Create customer social.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "customer_fact_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "website": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "facebook": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "linkedin": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/customer/get-customer-social": {
+      "get": {
+        "tags": ["Customer"],
+        "summary": "It will show all customer social as well as single by customer social.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "customer_fact_uuid",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ""
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by"
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  }
+}

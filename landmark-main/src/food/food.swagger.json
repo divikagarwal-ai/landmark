@@ -1,0 +1,387 @@
+{
+  "paths": {
+    "/api/v1/food/upsert-food-menu": {
+      "post": {
+        "tags": ["Food"],
+        "summary": "Create or update Food Menu.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "food_menu_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "dietary_type": {
+                    "type": "string",
+                    "default": "VEG | NON_VEG"
+                  },
+                  "menu_json": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "food_category_name": {
+                          "type": "string",
+                          "default": ""
+                        },
+                        "food_category_types": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "food_catgory_type_name": {
+                                "type": "string",
+                                "default": ""
+                              },
+                              "food_list": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "food_name": {
+                                      "type": "string",
+                                      "default": ""
+                                    },
+                                    "food_price": {
+                                      "type": "string",
+                                      "default": ""
+                                    },
+                                    "food_img": {
+                                      "type": "string",
+                                      "default": ""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+
+                  "dietary_order_preferance": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category created or updated successfully."
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameters."
+          },
+          "404": {
+            "description": "Not Found - Category not found."
+          }
+        }
+      }
+    },
+    "/api/v1/food/get-food-menu": {
+      "get": {
+        "tags": ["Food"],
+        "summary": "Retrieve all venues or a specific venue by UUID",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          },
+          {
+            "in": "query",
+            "name": "food_id",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "food_name",
+            "schema": {
+              "type": "string",
+              "default": null
+            }
+          },
+          {
+            "in": "query",
+            "name": "food_uuid",
+            "schema": {
+              "type": "string",
+              "default": null
+            }
+          },
+          {
+            "in": "query",
+            "name": "category_type",
+            "schema": {
+              "type": "string",
+              "default": null
+            }
+          },
+          {
+            "in": "query",
+            "name": "category_type",
+            "schema": {
+              "type": "string",
+              "default": null
+            }
+          },
+          {
+            "in": "query",
+            "name": "category_type_uuid",
+            "schema": {
+              "type": "string",
+              "default": null
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status of the category, e.g., ACTIVE, INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Upper date range for filtering venues (YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Lower date range for filtering venues (YYYY-MM-DD)."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Columns to include in the result."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search value for filtering venues based on a column."
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Page number for pagination.",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Number of items per page for pagination.",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "pageLimit",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "advanceFilter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "column": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": [""]
+                  },
+                  "operator": {
+                    "type": "string",
+                    "default": "EQUAL",
+                    "enum": [
+                      "EQUAL",
+                      "NOT_EQUAL",
+                      "GREATER",
+                      "LESSER",
+                      "GREATER_THAN_EQUAL",
+                      "LESSER_THAN_EQUAL",
+                      "CONTAINS",
+                      "STARTS_WITH",
+                      "ENDS_WITH",
+                      "DATE_RANGE"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "logicalOperator": {
+                    "type": "string",
+                    "default": "AND",
+                    "enum": ["AND", "OR"]
+                  }
+                }
+              }
+            },
+            "description": "Advanced filters for complex lead queries."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+
+    "/api/v1/food/added-lead-food-menu": {
+      "post": {
+        "tags": ["Food"],
+        "summary": "Create or update Food Menu.",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "leads_uuid": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "customer_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "menu_json": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "food_category_name": {
+                          "type": "string",
+                          "default": ""
+                        },
+                        "food_category_types": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "food_catgory_type_name": {
+                                "type": "string",
+                                "default": ""
+                              },
+                              "food_list": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "food_name": {
+                                      "type": "string",
+                                      "default": ""
+                                    },
+                                    "food_price": {
+                                      "type": "string",
+                                      "default": ""
+                                    },
+                                    "food_img": {
+                                      "type": "string",
+                                      "default": ""
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE | INACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category created or updated successfully."
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameters."
+          },
+          "404": {
+            "description": "Not Found - Category not found."
+          }
+        }
+      }
+    }
+  }
+}

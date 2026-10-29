@@ -1,0 +1,395 @@
+{
+  "paths": {
+    "/api/v1/siteConfiguration/upsert-site-configuration": {
+      "post": {
+        "tags": ["Site Configuration Private"],
+        "summary": "Post Site Configuration",
+        "description": "Endpoint to create or update Site Configuration",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "company_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "company_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "company_title": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "company_description": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "address": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "unit_or_suite": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "city": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "province_or_state": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "postal_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "country": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "phone": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "telephone": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "fax": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "default_language": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "accounts_email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "cl_email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "pl_email": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "default_tax_region": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "pst_or_gst_or_vat_number": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "bahamas_premium_tax": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "logo": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "fav_icon": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "adsense_header_code": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "about": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE || INACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/siteConfiguration/get-site-configuration": {
+      "get": {
+        "tags": ["Site Configuration Private"],
+        "summary": "Get Site Configuration",
+        "description": "Endpoint to retrieve Site Configuration",
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "description": "",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "type": "number"
+          }
+        ],
+
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/api/v1/siteConfiguration/get-public-site-configuration": {
+      "get": {
+        "tags": ["Site Configuration Public"],
+        "summary": "Get Site Configuration",
+        "description": "Endpoint to retrieve Site Configuration",
+        "produces": ["application/json"],
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/api/v1/siteConfiguration/upsert-environment-configuration": {
+      "post": {
+        "tags": ["Site Configuration Private"],
+        "summary": "Post Site Configuration",
+        "description": "Endpoint to create or update Site Configuration",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "environment_configuration_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "env_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "env_key": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "env_value": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "is_encrypted": {
+                    "type": "number",
+                    "default": "0 || 1"
+                  },
+                  "status": {
+                    "type": "string",
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/siteConfiguration/get-environment-configuration": {
+      "get": {
+        "tags": ["Site Configuration Private"],
+        "summary": "Get Site Configuration",
+        "description": "Endpoint to retrieve Site Configuration",
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "environment_configuration_uuid",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "description": "",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "description": "",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "description": "",
+            "required": true,
+            "type": "number"
+          }
+        ],
+
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    }
+  }
+}

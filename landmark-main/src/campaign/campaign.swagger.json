@@ -1,0 +1,191 @@
+{
+  "paths": {
+    "/api/v1/campaign/upsert-campaign": {
+      "post": {
+        "tags": ["Campaign"],
+        "summary": "Create or update campaign.",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "market_campaign_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "campaign_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "module_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "module_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "campaign_rule": {
+                    "type": "object",
+                    "default": null
+                  },
+                  "campaign_sql_rule": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "channel_type": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "channel_uuid": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "campaign_start_date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "campaign_end_date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "ui_module_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "status": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "default": "ACTIVE"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "406": {
+            "description": "Campaign already exists"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/campaign/get-campaigns": {
+      "get": {
+        "tags": ["Campaign"],
+        "summary": "Get all campaigns.",
+        "description": "",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The authorization token for the logged-in user."
+          },
+          {
+            "in": "query",
+            "name": "market_campaign_uuid",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status would be ACTIVE, INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status would be ACTIVE, INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "channel_type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "itemPerPage",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "pageLimit",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,333 @@
+{
+  "paths": {
+    "/api/v1/analytics/lead-followups": {
+      "get": {
+        "tags": ["Analytics"],
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "day_type",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["UPCOMING", "MISSED", "DONE"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+
+          {
+            "in": "query",
+            "name": "value",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/api/v1/analytics/leads": {
+      "get": {
+        "tags": ["Analytics"],
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "day_type",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["UPCOMING", "MISSED", "DONE"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "columns",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+
+          {
+            "in": "query",
+            "name": "value",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "description": "Format will be YYYY-MM-DD.",
+            "required": false,
+            "type": "string",
+            "default": ""
+          }
+        ],
+        "responses": {
+          "200": { "description": "successful operation" },
+          "404": { "description": "Not Found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/api/v1/analytics/ongoing-leads": {
+      "get": {
+        "tags": ["Analytics"],
+        "produces": ["application/json"],
+        "summary": "Get monthly ongoing leads analytics",
+        "description": "Retrieves the count of ongoing leads grouped by month for a specific year",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "Authentication token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "year",
+            "description": "Year for which to fetch analytics (defaults to current year)",
+            "required": false,
+            "type": "integer",
+            "example": 2024
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Ongoing Lead Analytics"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "lead": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "x": {
+                                "type": "string",
+                                "description": "Year and month (YYYY-MM format)",
+                                "example": "2024-03"
+                              },
+                              "y": {
+                                "type": "integer",
+                                "description": "Number of ongoing leads",
+                                "example": 25
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication token"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/analytics/review-keyword-count": {
+      "get": {
+        "tags": ["Analytics"],
+        "produces": ["application/json"],
+        "summary": "Get monthly review keyword counts by sentiment type",
+        "description": "Retrieves the count of each keyword grouped by month and sentiment type",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "description": "Authentication token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "year",
+            "description": "Year for which to fetch analytics (defaults to current year)",
+            "required": false,
+            "type": "integer",
+            "example": 2024
+          },
+          {
+            "in": "query",
+            "name": "month",
+            "description": "Month for filtering data (1-12, optional)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Monthly Review Keyword Count Analytics"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "monthly": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "month": {
+                                "type": "string",
+                                "example": "2024-01"
+                              },
+                              "positive": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "keyword": {
+                                      "type": "string",
+                                      "example": "location"
+                                    },
+                                    "count": {
+                                      "type": "integer",
+                                      "example": 2
+                                    }
+                                  }
+                                }
+                              },
+                              "negative": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "keyword": {
+                                      "type": "string",
+                                      "example": "food"
+                                    },
+                                    "count": {
+                                      "type": "integer",
+                                      "example": 1
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing authentication token"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

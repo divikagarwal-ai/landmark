@@ -1,0 +1,615 @@
+{
+  "paths": {
+    "/api/v1/conversation/whatsapp-send-messages": {
+      "post": {
+        "tags": ["Social Media Conversation"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reference_uuid_column_name": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "reference_uuid_column_value": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "fromNumber": {
+                    "type": "string",
+                    "default": null
+                  },
+                  "toNumber": {
+                    "type": "string",
+                    "default": "+91"
+                  },
+                  "message": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "is_automatic_message": {
+                    "type": "number",
+                    "default": 0
+                  },
+                  "templateName": {
+                    "type": "string",
+                    "default": ""
+                  },
+                  "objectVariables": {
+                    "type": "object",
+                    "properties": {
+                      "headerVar": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "default": "text | number"
+                            },
+                            "value": {
+                              "type": "string",
+                              "default": ""
+                            }
+                          }
+                        }
+                      },
+                      "bodyVar": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "default": "text | number"
+                            },
+                            "value": {
+                              "type": "string",
+                              "default": ""
+                            }
+                          }
+                        }
+                      },
+                      "footerVar": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "default": "text | number"
+                            },
+                            "value": {
+                              "type": "string",
+                              "default": ""
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/v1/conversation/send-message-on-status": {
+      "get": {
+        "tags": ["Social Media Conversation"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "dream_lab_key",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from_number",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to_number",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "lead_status",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/conversation/get-whatsapp-messages-history": {
+      "get": {
+        "tags": ["Social Media Conversation"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "phone_number",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ""
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by specified value."
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "number"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "name": "itemPerPage",
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/conversation/get-whatsapp-status-history": {
+      "get": {
+        "tags": ["Social Media Conversation"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "conversation_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ""
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by specified value."
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "number"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "name": "itemPerPage",
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/conversation/is-whatsapp-conversation-started": {
+      "get": {
+        "tags": ["Social Media Conversation"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from_number",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/conversation/get-qr-whatsapp": {
+      "get": {
+        "tags": ["Social Media Conversation"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+    "/api/v1/conversation/get-all-groups": {
+      "get": {
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "tags": ["Social Media Conversation"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+
+    "/api/v1/conversation/get-group-messages": {
+      "get": {
+        "tags": ["Social Media Conversation"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "group_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "module_name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "module_uuid",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Status for lead would be ACTIVE or INACTIVE."
+          },
+          {
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Format will be YYYY-MM-DD."
+          },
+          {
+            "in": "query",
+            "name": "column",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "default": ""
+            },
+            "description": "Column name for search value."
+          },
+          {
+            "in": "query",
+            "name": "value",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search by specified value."
+          },
+          {
+            "in": "query",
+            "name": "pageNo",
+            "schema": {
+              "type": "number"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "in": "query",
+            "schema": {
+              "type": "number"
+            },
+            "name": "itemPerPage",
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/conversation/link-whatsapp-group-to-module": {
+      "post": {
+        "tags": ["Social Media Conversation"],
+        "summary": "Link WhatsApp group to a module",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "group_id": {
+                    "type": "string",
+                    "description": "WhatsApp group ID",
+                    "default": ""
+                  },
+                  "module_name": {
+                    "type": "string",
+                    "description": "Name of the module to link",
+                    "default": ""
+                  },
+                  "module_uuid": {
+                    "type": "string",
+                    "description": "UUID of the module",
+                    "default": ""
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "Status of the mapping",
+                    "default": "ACTIVE"
+                  }
+                },
+                "required": ["group_id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully linked WhatsApp group to module"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/conversation/change-internal-status": {
+      "put": {
+        "tags": ["Social Media Conversation"],
+        "summary": "Change internal status of WhatsApp messages",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "auth-Token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "conversation_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully changed internal status"
+          }
+        }
+      }
+    }
+  }
+}
